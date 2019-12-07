@@ -3,8 +3,60 @@ using Xunit;
 
 namespace GradeBook.Test
 {
+
+    public delegate string WriteLogDelegate(string logMessage);
+
     public class TypeTests
     {
+
+        [Fact]
+        public void WriteLogDelegateCanPointToMethod()
+        {
+            WriteLogDelegate log;
+            log = ReturnMessage;
+            var result = log("Hello");
+
+            Assert.Equal("Hello", result);
+        }
+
+        string ReturnMessage(string message)
+        {
+            return message;        
+        }
+
+        [Fact]
+        public void StringsBahveLikeValueTypes()
+        {
+            string name = "Paul";
+            var upper = MakeUpperCase(name);
+
+            Assert.Equal("PAUL", upper);
+        }
+
+        private string MakeUpperCase(string paramter)
+        {
+            return paramter.ToUpper();
+        }
+
+        [Fact]
+        public void Test1()
+        {
+            var x = GetInt();
+            Setint(ref x);
+
+            Assert.Equal(42, x);
+        }
+
+        private void Setint(ref int z)
+        {
+            z = 42;
+        }
+
+        private int GetInt()
+        {
+            return 3;
+        }
+
         [Fact]
         public void CSharpCanPassByRef()
         {

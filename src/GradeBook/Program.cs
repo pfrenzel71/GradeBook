@@ -7,17 +7,41 @@ namespace GradeBook
     class Program
     {
         static void Main(string[] args)
-        {      
-            var book = new Book("Paul's GradeBook");
-            book.AddGrade(89.1);
-            book.AddGrade(90.5);
-            book.AddGrade(77.5);
+        {
+            //arrange
+            var tbook = new Book("Paul's GradeBook");
 
-            var stats = book.GetStatistics();
+            while (true)
+            {
+                Console.WriteLine("Enter a grade or enter 'q' to quit");
+                var input = Console.ReadLine();
+                if (input.Equals("q"))
+                {
+                    break;
+                }
+                
+                try
+                {
+                    var grade = double.Parse(input);
+                    tbook.AddGrade(grade);
+                }
+                catch(Exception ex)
+                {
+                    Console.WriteLine(ex.Message);
+                }
+            }
 
+            //act
+            var results = tbook.GetStatistics();
+
+            var stats = tbook.GetStatistics();
+
+            Console.WriteLine($"The Category is : {Book.CATEGORY}");
+            Console.WriteLine($"For the Book Named :{tbook.Name}");
             Console.WriteLine($"Lowest Grade is : {stats.Low}");
             Console.WriteLine($"Highest Grade is : {stats.High}");
             Console.WriteLine($"Avg Grade is : {stats.Average:N1}");
+            Console.WriteLine($"Letter Grade is : {stats.Letter}");
         }
     }
 }

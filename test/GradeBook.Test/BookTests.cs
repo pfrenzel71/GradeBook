@@ -1,3 +1,4 @@
+using System;
 using Xunit;
 
 namespace GradeBook.Test
@@ -9,9 +10,18 @@ namespace GradeBook.Test
         {
             //arrange
             var tbook = new Book("Paul's GradeBook");
-            tbook.AddGrade(89.1);
-            tbook.AddGrade(90.5);
-            tbook.AddGrade(77.3);
+           
+            while (true)
+            {
+                Console.WriteLine("Enter a grade or enter 'q' to quit");
+                var input = Console.ReadLine();
+                if (!input.Equals("q"))
+                {
+                    break;
+                }
+                var grade = double.Parse(input);
+                tbook.AddGrade(grade);
+            }
 
             //act
             var results = tbook.GetStatistics();
@@ -20,6 +30,7 @@ namespace GradeBook.Test
             Assert.Equal(85.6, results.Average, 1);
             Assert.Equal(90.5, results.High, 1);
             Assert.Equal(77.3, results.Low, 1);
+            Assert.Equal('B', results.Letter);
         }
     }
 }
